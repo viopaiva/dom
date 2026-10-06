@@ -43,3 +43,38 @@ function salvarTarefa() {
         JSON.stringify(tarefas)
     );
 }
+
+function redenrizarTarefas() {
+    listaTarefas.innerHTML = "";    
+
+    tarefas.forEach(function (tarefa, indice) {
+        const linha = document.createElement("tr");
+        const colunaNumero = document.createElement("td");
+        colunaNumero.textContent = indice + 1;
+
+        const colunaTexto = document.createElement("td");
+        colunaTexto.textContent = tarefa.texto;
+
+        if (tarefa.concluido) {
+            colunaTexto.classList.add(
+                "text-decoration-line-through",
+                "text-muted"
+            );
+        }
+
+        const colunaStatus = document.createElement("td");
+        if (tarefa.concluido) {
+            colunaStatus.innerHTML = 
+            '<span class="badge text-bg-success">Concluída</span>';
+        } else {
+            colunaStatus.innerHTML =
+            '<span class="badge text-bg-warning">Pendente</span>';
+        }
+
+        linha.appendChild(colunaNumero);
+        linha.appendChild(colunaTexto);
+        linha.appendChild(colunaStatus);
+
+        listaTarefas.appendChild(linha);
+    });
+}
